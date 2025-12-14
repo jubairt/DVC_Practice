@@ -47,8 +47,131 @@ This repository is a **learning project** to understand how **Git** and **DVC (D
 
 ---
 
-## 🛠 Step 1: Initialize Git & DVC
+## Step 1: Initialize Git & DVC
 
 ```bash
 git init
 python -m dvc init
+```
+- Creates a Git repository
+- Enables DVC tracking
+- Adds the .dvc/ configuration folder
+
+## Step 2: Track Dataset (Version 1)
+
+```bash
+python -m dvc add Linear_Regression_Data.csv
+git add Linear_Regression_Data.csv.dvc .gitignore
+git commit -m "this is the v1 of data"
+```
+- Dataset is stored in the DVC cache
+- .dvc file stores a hash (pointer) to the data
+- Git tracks only the .dvc file, not the actual dataset
+
+
+## Step 3: Track Model (Version 1)
+
+```bash
+python -m dvc add model.pkl
+git add model.pkl.dvc
+git add training.py alter_data.py commands_to_fetch_any_version
+git commit -m "this is v1"
+```
+- Model is versioned with DVC
+- Code is versioned with Git
+
+
+## Step 4: Create Version 2 (Data + Model Change)
+
+```bash
+python -m dvc add Linear_Regression_Data.csv
+python -m dvc add model.pkl
+git add .
+git commit -m "this is the v2"
+```
+- v1 → old data + old model
+- v2 → updated data + updated model
+
+
+## Step 5: View Commit History
+
+```bash
+git log --oneline
+```
+
+
+## Step 6: Go Back to Version 1 (Detached HEAD)
+
+```bash
+git checkout ca6512c
+dvc pull
+```
+- Switches Git metadata to v1
+- Restores v1 dataset and model using DVC
+
+
+## Step 7: Create a Branch for v1
+
+```bash
+git checkout master
+git checkout -b v1 ca6512c
+```
+- master → v2
+- v1 → stable version 1
+
+
+## Step 8: Add DVC Remote Storage
+
+```bash
+dvc remote add -d storage ./dvc_storage
+git add .dvc/config
+git commit -m "added storage"
+```
+- This configures where DVC stores real data and models.
+
+
+## Step 9: Push Data & Models to DVC Remote
+
+```bash
+dvc push
+```
+- Uploads Dataset and Model into dvc_storage/
+
+⚠️Important:
+In real projects, dvc_storage/ should NOT be committed to Git.
+(It was committed here only for learning purposes.)
+
+
+## Step 10: Switch Branches and Restore Correct Data
+
+```bash
+git checkout master
+dvc pull
+```
+```bash
+git checkout v1
+dvc pull
+```
+Each branch restores:
+- Its correct dataset
+- Its correct model
+
+
+## Step 8: Add DVC Remote Storage
+
+```bash
+dvc remote add -d storage ./dvc_storage
+git add .dvc/config
+git commit -m "added storage"
+```
+- This configures where DVC stores real data and models.
+
+
+## Step 8: Add DVC Remote Storage
+
+```bash
+dvc remote add -d storage ./dvc_storage
+git add .dvc/config
+git commit -m "added storage"
+```
+- This configures where DVC stores real data and models.

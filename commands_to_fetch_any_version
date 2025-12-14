@@ -1,0 +1,6 @@
+Repeat
+git log
+Check out a specific version by its commit hash:
+git checkout 123abc45
+Pull the corresponding data or model version:
+dvc pull

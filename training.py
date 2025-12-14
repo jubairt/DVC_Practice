@@ -7,7 +7,7 @@ data = pd.read_csv('Linear_Regression_Data.csv')
 # Input feature (X) and target (y)
 X = data[['YearsExperience']]
 y = data['Salary']
-# y = y/10
+y = y/10
 
 # Train model
 model = LinearRegression()

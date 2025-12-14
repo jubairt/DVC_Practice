@@ -1,5 +1,6 @@
 # 📦 DVC + Git Practice Project (Data & Model Versioning)
 
+YT Tutorial: https://youtu.be/XMnuZF53LAY?si=pJ2t_LpxDkCIhn6_
 This repository is a **learning project** to understand how **Git** and **DVC (Data Version Control)** work together to version:
 
 - Code  
